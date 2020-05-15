@@ -1,0 +1,35 @@
+{
+  "name": "Norns Interceptor Chrome Extension",
+  "version": "1.0.0.0",
+  "manifest_version": 2,
+  "description": "Norns Interceptor Chrome Extension.",
+  "homepage_url": "https://norns.ai",
+  "icons": {
+    "64": "icons/icon_32.png"
+  },
+  "browser_action": {},
+  "background": {
+    "scripts": [
+      "src/background.js"
+    ],
+    "persistent": true
+  },
+  "permissions": [
+    "tabs",
+    "cookies",
+    "contextMenus", 
+    "https://www.linkedin.com/*",
+    "https://www.norns.ai/*"
+  ],
+  "content_security_policy": "default-src 'self';",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.norns.ai/*"
+      ],
+      "js": [
+        "src/content.js"
+      ]
+    }
+  ]
+}
