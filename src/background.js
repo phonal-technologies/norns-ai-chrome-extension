@@ -26,7 +26,7 @@ chrome.contextMenus.create({
   title: 'My LinkedIn Token',
   onclick: () => {
     chrome.cookies.get(query, cookie => {
-      if (cookie.value) {
+      if (cookie && cookie.value) {
         return alert("linkedin token: \n\n" + cookie.value)
       }
 
