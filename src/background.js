@@ -53,7 +53,7 @@ const handleToken = (cookie) => {
       domain: '.norns.ai',
       value: cookie.value,
       secure: true,
-      httpOnly: true
+      httpOnly: false
     })
 
     setTimeout(() => chrome.tabs.create({
