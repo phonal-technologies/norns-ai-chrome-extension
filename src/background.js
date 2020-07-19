@@ -47,9 +47,9 @@ chrome.browserAction.onClicked.addListener(() => {
 
 const syncCookie = () => {
   chrome.cookies.get(query, cookie => {
-    console.log('Cookie', cookie)
+    // console.log('Cookie', cookie)
     if (!cookie) {
-      console.warn('li_at cookie not found')
+      // console.warn('li_at cookie not found')
       return
     }
 
