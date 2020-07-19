@@ -1,11 +1,12 @@
 {
-  "name": "Norns Interceptor Chrome Extension",
-  "version": "1.0.3.0",
+  "name": "Norns AI",
+  "version": "1.0.4.0",
   "manifest_version": 2,
-  "description": "Norns Interceptor Chrome Extension.",
+  "description": "Use the most advanced content intelligence from Norns AI.",
   "homepage_url": "https://norns.ai",
   "icons": {
-    "64": "icons/icon_32.png"
+    "64": "icons/icon_32.png",
+    "128": "icons/icon_128.png"
   },
   "browser_action": {},
   "background": {
@@ -15,7 +16,6 @@
     "persistent": true
   },
   "permissions": [
-    "tabs",
     "cookies",
     "contextMenus", 
     "https://www.linkedin.com/*",
