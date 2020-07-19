@@ -1,3 +1,17 @@
+## [1.0.3](https://github.com/dmitry-tuzenkov/norns-ai-chrome-extension/compare/v1.0.2...v1.0.3) (2020-07-19)
+
+
+### Bug Fixes
+
+* **interval:** Reduce interval duration to handle case with relogin ([45a72e0](https://github.com/dmitry-tuzenkov/norns-ai-chrome-extension/commit/45a72e0c8e5de2b935dfa8cb645adde2421279e9))
+
+
+### Features
+
+* **manifest:** Update manifest version ([2c04051](https://github.com/dmitry-tuzenkov/norns-ai-chrome-extension/commit/2c04051d9cf4b64f9a87277a115db007a072bf28))
+
+
+
 ## [1.0.2](https://github.com/dmitry-tuzenkov/norns-ai-chrome-extension/compare/v1.0.1...v1.0.2) (2020-07-19)
 
 
