@@ -1,3 +1,13 @@
+## [1.0.4](https://github.com/dmitry-tuzenkov/norns-ai-chrome-extension/compare/v1.0.3...v1.0.4) (2020-07-19)
+
+
+### Bug Fixes
+
+* **console:** remove console ([c385136](https://github.com/dmitry-tuzenkov/norns-ai-chrome-extension/commit/c385136aa8f8509ec1c1fd7a81c0b3641fba6cb7))
+* **manifest:** Update manifest and ver ([a294633](https://github.com/dmitry-tuzenkov/norns-ai-chrome-extension/commit/a29463336aa54939adf8c0ccc71987e44febedf0))
+
+
+
 ## [1.0.3](https://github.com/dmitry-tuzenkov/norns-ai-chrome-extension/compare/v1.0.2...v1.0.3) (2020-07-19)
 
 
