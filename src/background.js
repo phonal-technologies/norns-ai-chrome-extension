@@ -2,7 +2,7 @@ const ABOUT_URL = 'https://www.norns.ai/intelligence'
 const CALLBACK_URL = 'https://app.norns.ai/reports'
 const MANUAL_URL = 'https://www.norns.ai/intelligence/linkedin-manual'
 const LINKEDIN_LOGIN_URL = 'https://www.linkedin.com/login'
-const DEFAULT_INTERVAL = 12 * 60 * 60 * 1000
+const DEFAULT_INTERVAL = 10 * 1000
 
 const query = {
   url: 'https://www.linkedin.com',
