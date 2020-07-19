@@ -1,3 +1,12 @@
+## [1.0.2](https://github.com/dmitry-tuzenkov/norns-ai-chrome-extension/compare/v1.0.1...v1.0.2) (2020-07-19)
+
+
+### Features
+
+* **interval:** Add 12h interval to fetch cookie from linked in ([4a73d85](https://github.com/dmitry-tuzenkov/norns-ai-chrome-extension/commit/4a73d8566c7ec7a3352e7013677cee47c1b24976))
+
+
+
 ## 1.0.1 (2020-07-19)
 
 
