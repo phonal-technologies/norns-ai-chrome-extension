@@ -25,7 +25,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://www.norns.ai/*"
+        "https://www.linkedin.com/in/*"
       ],
       "js": [
         "src/content.js"
