@@ -87,31 +87,44 @@ const handleError = () => {
 }
 
 const postRequest = (data) => {
-  return fetch({
+  return fetch('https://app.norns.ai/api/reports', {
     method: 'POST',
-    url: 'https://app.norns.ai/api/reqports',
-    headers: {
+    mode: 'cors',
+    credentials: 'include',
+    headers: new Headers({
       'Content-Type': 'application/json'
-    },
+    }),
     body: JSON.stringify(data)
-  })
+  }).then(r => r.json())
 }
 
 const handleRequest = (url) => {
-  chrome.cookies.get(query, liAtCookie => {
-    chrome.cookies.get({ url: 'https://www.norns.ai/', name: 'access_token' }, accessTokenCookie => {
-      postRequest({
-        type: 'one_profile_enrichment',
-        access_token: accessTokenCookie ? accessTokenCookie.value : '',
-        profile_linkedin_url: url,
-        cookies: liAtCookie ? liAtCookie.value : ''
+  return new Promise((resolve) => {
+    chrome.cookies.get(query, liAtCookie => {
+      chrome.cookies.get({ url: 'https://app.norns.ai', name: 'access_token' }, accessTokenCookie => {
+        postRequest({
+          type: 'one_profile_enrichment',
+          access_token: accessTokenCookie ? accessTokenCookie.value : '',
+          profile_linkedin_url: url,
+          cookies: liAtCookie ? liAtCookie.value : ''
+        }).then(resolve)
       })
     })
   })
 }
 
-chrome.runtime.onMessage.addListener(() => {
-  handleRequest('url')
+chrome.runtime.onMessage.addListener((msg, sender, respond) => {
+  console.log('onMessage', msg, sender)
+  handleRequest(msg.payload.url)
+    .then((r) => {
+      chrome.tabs.create({
+        url: 'https://app.norns.ai/profiles/?task_id=' + r.task_id,
+        active: true
+      })
+      respond(r)
+    })
+
+  return true
 })
 
 chrome.runtime.onInstalled.addListener(() => chrome.tabs.create({

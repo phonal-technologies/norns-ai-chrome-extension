@@ -16,12 +16,14 @@
     "persistent": true
   },
   "permissions": [
+    "tabs",
     "cookies",
     "contextMenus", 
     "https://www.linkedin.com/*",
-    "https://www.norns.ai/*"
+    "https://www.norns.ai/*",
+    "https://app.norns.ai/*"
   ],
-  "content_security_policy": "default-src 'self';",
+  "content_security_policy": "script-src 'self' https://app.norns.ai; object-src 'self'",
   "content_scripts": [
     {
       "matches": [

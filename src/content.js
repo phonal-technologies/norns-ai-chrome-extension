@@ -32,9 +32,17 @@ const handleOtherProfilePage = (url) => {
 }
 
 const handleClick = () => {
+  const payload = { 
+    name: 'postRequest', 
+    payload: { url: getUrl() }
+  }  
 
-
+  // chrome.tabs.query({currentWindow: true,active: true}, (tabs) => {
+  //   chrome.tabs.sendMessage(tab[0].id, payload)
+  // })
+  chrome.runtime.sendMessage(payload, {}, (r) => console.log(r))
 }
+
 
 watchHref((newVal, oldVal) => {
   console.log('href is ', newVal, oldVal)
@@ -53,3 +61,4 @@ watchHref((newVal, oldVal) => {
 
 })
 
+handleClick()
