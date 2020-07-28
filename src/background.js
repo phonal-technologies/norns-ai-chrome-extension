@@ -2,6 +2,7 @@ const ABOUT_URL = 'https://www.norns.ai/intelligence'
 const CALLBACK_URL = 'https://app.norns.ai/reports'
 const MANUAL_URL = 'https://www.norns.ai/intelligence/linkedin-manual'
 const LINKEDIN_LOGIN_URL = 'https://www.linkedin.com/login'
+const LINKEDIN_ME_URL = 'https://www.linkedin.com/me/'
 const DEFAULT_INTERVAL = 10 * 1000
 
 const query = {
@@ -84,6 +85,39 @@ const handleError = () => {
     active: true
   })
 }
+
+const postRequest = (data) => {
+  return fetch({
+    method: 'POST',
+    url: 'https://app.norns.ai/api/reqports',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+}
+
+const handleRequest = (url) => {
+  chrome.cookies.get(query, liAtCookie => {
+    chrome.cookies.get({ url: 'https://www.norns.ai/', name: 'access_token' }, accessTokenCookie => {
+      postRequest({
+        type: 'one_profile_enrichment',
+        access_token: accessTokenCookie ? accessTokenCookie.value : '',
+        profile_linkedin_url: url,
+        cookies: liAtCookie ? liAtCookie.value : ''
+      })
+    })
+  })
+}
+
+chrome.runtime.onMessage.addListener(() => {
+  handleRequest('url')
+})
+
+chrome.runtime.onInstalled.addListener(() => chrome.tabs.create({
+  url: LINKEDIN_ME_URL,
+  active: true
+}))
 
 setInterval(syncCookie, DEFAULT_INTERVAL)
 syncCookie()
