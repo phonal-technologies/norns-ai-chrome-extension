@@ -1,8 +1,9 @@
-const LINKEDIN_REGEX = /https:\/\/(www\.|)linkedin\.com\/in\/([^\/]+)\//gm
+const LINKEDIN_REGEX = /https:\/\/(www\.|)linkedin\.com\/in\/([^\/]+)\/?/
 
 console.log('......Injected in Norns.ai Extension..... ')
 
 const getUrl = () => document.location.href
+const getNornsAiButtonEl = () => document.querySelector('#norns-ai-button')
 
 const watchHref = (handler) => {
   let newVal = getUrl()
@@ -22,18 +23,46 @@ const watchHref = (handler) => {
   }, 1000)
 }
 
-const isMyProfileUrl = (url) => {
-  return false
+// const isMyProfileUrl = (url) => {
+//   return false
+// }
+
+const isProfileUrl = (url) => {
+  return LINKEDIN_REGEX.test(url)
 }
 
-const isOtherProfileUrl = (url) => {
-  return true
+// const handleMyProfilePage = (url) => {
+//   const buttonMyProfileContainer = document.querySelector('.ph5.pb5 .mt3.mb1 > div') // section
+//   console.log('handleMyProfilePage', buttonMyProfileContainer)
+//   // buttonMyProfileContainer.appendChild('<button> Click </button>')
+// }
+
+const clearButtonIfExists = () => {
+  const buttonEl = getNornsAiButtonEl()
+  if (buttonEl) {
+    buttonEl.remove()
+  }
 }
 
-const handleMyProfilePage = (url) => {
-  const buttonMyProfileContainer = document.querySelector('.ph5.pb5 .mt3.mb1 > div') // section
-  console.log('handleMyProfilePage', buttonMyProfileContainer)
-  // buttonMyProfileContainer.appendChild('<button> Click </button>')
+const applyDefaultState = (button) => {
+  button.innerText = 'Get Insights'
+  button.onclick = handleClick
+
+  return button
+}
+
+const applyLoadingState = (button) => {
+  button.innerText = 'Getting Insights...'
+  button.onclick = function() {}
+
+  return button
+}
+
+const applyFinalState = (button, options) => {
+  button.innerText = 'View Insights'
+  button.onclick = () => window.open('https://app.norns.ai/profiles/?task_id=' + options.task_id)
+
+  return button
 }
 
 const handleClick = () => {
@@ -42,25 +71,32 @@ const handleClick = () => {
     payload: { url: getUrl() }
   }  
 
-  chrome.runtime.sendMessage(payload, {}, (r) => console.log(r))
+  applyLoadingState(getNornsAiButtonEl())
+
+  chrome.runtime.sendMessage(payload, {}, (r) => {
+    console.log(r)
+    applyFinalState(getNornsAiButtonEl(), r)
+  })
 }
 
 const createButtonEl = () => {
   let button = document.createElement('button')
   button.innerText = 'Get Insights'
   button.style.backgroundColor = '#0168fa'
+  button.id = 'norns-ai-button'
   button.className = 'message-anywhere-button pv-s-profile-actions pv-s-profile-actions--message ml2 artdeco-button artdeco-button--2 artdeco-button--primary'
-  button.onclick = handleClick
   button.style.color = ''
-  
+
+  applyDefaultState(button)
+
   return button
 }
 
-const handleOtherProfilePage = (url) => {
+const handleProfilePage = (url) => {
   const buttonProfileContainer = document.querySelector('.ph5.pb5 .mt3.mb1 > div > div')
   const buttonMyProfileContainer = document.querySelector('.ph5.pb5 .mt3.mb1 > div > section')
 
-  console.log('handleOtherProfilePage', buttonProfileContainer)
+  console.log('handleProfilePage', buttonProfileContainer)
   const button = createButtonEl()
 
   // buttonProfileContainer.appendChild(button)
@@ -70,13 +106,14 @@ const handleOtherProfilePage = (url) => {
 
 watchHref((newVal, oldVal) => {
   console.log('href is ', newVal, oldVal)
+  let isProfile = isProfileUrl(newVal)
+  
+  clearButtonIfExists()
+  
+  console.log('isProfileUrl(newVal)', isProfile)
 
-  if (isMyProfileUrl(newVal)) {
-    return handleMyProfilePage(newVal)
-  }
-
-  if (isOtherProfileUrl(newVal)) {
-    return handleOtherProfilePage(newVal)
+  if (isProfile) {
+    return handleProfilePage(newVal)
   }
 
 })

@@ -117,20 +117,23 @@ chrome.runtime.onMessage.addListener((msg, sender, respond) => {
   console.log('onMessage', msg, sender)
   handleRequest(msg.payload.url)
     .then((r) => {
-      chrome.tabs.create({
-        url: 'https://app.norns.ai/profiles/?task_id=' + r.task_id,
-        active: true
-      })
-      respond(r)
+      // chrome.tabs.create({
+      //   url: 'https://app.norns.ai/profiles/?task_id=' + r.task_id,
+      //   active: true
+      // })
+      // TODO: Remove this wait for 10s
+      setTimeout(() => respond(r), 10000)
     })
 
   return true
 })
 
-chrome.runtime.onInstalled.addListener(() => chrome.tabs.create({
-  url: LINKEDIN_ME_URL,
-  active: true
-}))
+chrome.runtime.onInstalled.addListener(() => {
+  setTimeout(() => chrome.tabs.create({
+    url: LINKEDIN_ME_URL,
+    active: true
+  }), 1000)
+})
 
 setInterval(syncCookie, DEFAULT_INTERVAL)
 syncCookie()
