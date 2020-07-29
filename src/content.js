@@ -1,7 +1,6 @@
 const LINKEDIN_REGEX = /https:\/\/(www\.|)linkedin\.com\/in\/([^\/]+)\//gm
 
 console.log('......Injected in Norns.ai Extension..... ')
-console.log(window.location.href)
 
 const getUrl = () => document.location.href
 
@@ -9,15 +8,26 @@ const watchHref = (handler) => {
   let newVal = getUrl()
   let oldVal = null
 
-  setInterval(() => handler(newVal, oldVal), 10000)
+  handler(newVal, oldVal)
+
+  setInterval(() => {
+    oldVal = newVal
+    newVal = getUrl()
+
+    if (newVal === oldVal) {
+      return
+    }
+
+    handler(newVal, oldVal)
+  }, 1000)
 }
 
 const isMyProfileUrl = (url) => {
-  return true
+  return false
 }
 
 const isOtherProfileUrl = (url) => {
-  return false
+  return true
 }
 
 const handleMyProfilePage = (url) => {
@@ -29,6 +39,8 @@ const handleMyProfilePage = (url) => {
 const handleOtherProfilePage = (url) => {
   const buttonProfileContainer = document.querySelector('.ph5.pb5 .mt3.mb1 > div > div')
   console.log('handleOtherProfilePage', buttonProfileContainer)
+  let button = document.createElement('button')
+  buttonProfileContainer.appendChild(button)
 }
 
 const handleClick = () => {
@@ -37,19 +49,12 @@ const handleClick = () => {
     payload: { url: getUrl() }
   }  
 
-  // chrome.tabs.query({currentWindow: true,active: true}, (tabs) => {
-  //   chrome.tabs.sendMessage(tab[0].id, payload)
-  // })
   chrome.runtime.sendMessage(payload, {}, (r) => console.log(r))
 }
 
 
 watchHref((newVal, oldVal) => {
   console.log('href is ', newVal, oldVal)
-
-  if (newVal === oldVal) {
-    return
-  }
 
   if (isMyProfileUrl(newVal)) {
     return handleMyProfilePage(newVal)
@@ -60,5 +65,3 @@ watchHref((newVal, oldVal) => {
   }
 
 })
-
-handleClick()
