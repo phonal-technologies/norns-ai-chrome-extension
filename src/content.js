@@ -36,13 +36,6 @@ const handleMyProfilePage = (url) => {
   // buttonMyProfileContainer.appendChild('<button> Click </button>')
 }
 
-const handleOtherProfilePage = (url) => {
-  const buttonProfileContainer = document.querySelector('.ph5.pb5 .mt3.mb1 > div > div')
-  console.log('handleOtherProfilePage', buttonProfileContainer)
-  let button = document.createElement('button')
-  buttonProfileContainer.appendChild(button)
-}
-
 const handleClick = () => {
   const payload = { 
     name: 'postRequest', 
@@ -52,6 +45,28 @@ const handleClick = () => {
   chrome.runtime.sendMessage(payload, {}, (r) => console.log(r))
 }
 
+const createButtonEl = () => {
+  let button = document.createElement('button')
+  button.innerText = 'Get Insights'
+  button.style.backgroundColor = '#0168fa'
+  button.className = 'message-anywhere-button pv-s-profile-actions pv-s-profile-actions--message ml2 artdeco-button artdeco-button--2 artdeco-button--primary'
+  button.onclick = handleClick
+  button.style.color = ''
+  
+  return button
+}
+
+const handleOtherProfilePage = (url) => {
+  const buttonProfileContainer = document.querySelector('.ph5.pb5 .mt3.mb1 > div > div')
+  const buttonMyProfileContainer = document.querySelector('.ph5.pb5 .mt3.mb1 > div > section')
+
+  console.log('handleOtherProfilePage', buttonProfileContainer)
+  const button = createButtonEl()
+
+  // buttonProfileContainer.appendChild(button)
+  buttonProfileContainer.insertBefore(button, buttonProfileContainer.childNodes[0])
+
+}
 
 watchHref((newVal, oldVal) => {
   console.log('href is ', newVal, oldVal)
