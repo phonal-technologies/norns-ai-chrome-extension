@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/dmitry-tuzenkov/norns-ai-chrome-extension/compare/v1.0.4...v1.1.0) (2020-07-29)
+
+
+### Features
+
+* **button:** Added button ([909f833](https://github.com/dmitry-tuzenkov/norns-ai-chrome-extension/commit/909f833deaafd62e20eb4d0ff94bf1ed13efa921))
+* **integration:** Add button behaviour ([6991eb0](https://github.com/dmitry-tuzenkov/norns-ai-chrome-extension/commit/6991eb0315ea0b6c6ccb481bb862c26e28bdee4d))
+* **integration:** Initial commit ([5fe1a00](https://github.com/dmitry-tuzenkov/norns-ai-chrome-extension/commit/5fe1a000f3d5920a71b739c3f0e2e7e109707700))
+* **messaging:** Add mesaging and API ([804a6a5](https://github.com/dmitry-tuzenkov/norns-ai-chrome-extension/commit/804a6a5f56a969cef6f4463dda8eaee196fd5c27))
+
+
+
 ## [1.0.4](https://github.com/dmitry-tuzenkov/norns-ai-chrome-extension/compare/v1.0.3...v1.0.4) (2020-07-19)
 
 
