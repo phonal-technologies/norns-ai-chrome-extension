@@ -1,6 +1,6 @@
 {
   "name": "Norns AI",
-  "version": "1.0.4.0",
+  "version": "1.0.5.0",
   "manifest_version": 2,
   "description": "Use the most advanced content intelligence from Norns AI.",
   "homepage_url": "https://norns.ai",
@@ -18,10 +18,10 @@
   "permissions": [
     "tabs",
     "cookies",
+    "notifications",
     "contextMenus", 
     "https://www.linkedin.com/*",
-    "https://www.norns.ai/*",
-    "https://app.norns.ai/*"
+    "https://*.norns.ai/*"
   ],
   "content_security_policy": "script-src 'self' https://app.norns.ai; object-src 'self'",
   "content_scripts": [
